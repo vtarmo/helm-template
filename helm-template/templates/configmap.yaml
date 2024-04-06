@@ -1,0 +1,3 @@
+{{- if .Values.configMap -}}
+{{- include "common.configMap" (list . .Values.configMap) -}}
+{{- end }}

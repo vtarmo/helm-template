@@ -1,0 +1,1 @@
+{{- include "common.ips" (list . .Values.imageCredentials) -}}

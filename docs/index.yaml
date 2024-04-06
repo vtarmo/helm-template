@@ -1,0 +1,21 @@
+apiVersion: v1
+entries:
+  helm-template:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2024-04-07T00:51:06.375577+03:00"
+    dependencies:
+    - name: helm-common
+      repository: https://vtarmo.github.io/helm-common/
+      version: 0.5.2
+    description: Universal helm template
+    digest: 91d4ead22cb3e823ad3c26d5157844882fc8f62ef0d832f32cea106a9ea3c83b
+    maintainers:
+    - email: vta6722@gmail.com
+      name: Tarmo Katmuk
+    name: helm-template
+    type: application
+    urls:
+    - https://vtarmo.github.io/helm-template/helm-template-0.1.1.tgz
+    version: 0.1.1
+generated: "2024-04-07T00:51:06.371719+03:00"

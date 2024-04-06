@@ -1,0 +1,197 @@
+## @section Global parameters
+## @param global.storageClass Global Storage Class configuration
+## @descriptionStart Global parameters to use in Helm chart herewith and the subcharts.
+## @descriptionEnd
+global:
+  storageClass: ""
+# replicaCount: 1
+
+## @section Image parameters
+## @param image.repository [default: REGISTRY_NAME] Image registry name
+## @param image.tag [default: TAG] Image tag
+## @param image.pullPolicy Image pull policy
+image:
+  repository: ""
+  tag: ""
+  pullPolicy: IfNotPresent
+
+## @param imagePullSecrets Secret name or names to pull images from private registry.
+imagePullSecrets:
+  []
+  # - name: regcred
+
+## @param imageCredentials [object] Parameters to create a registry secret. See [Image file registry secret creation](#image-file-secrets-creation)
+imageCredentials:
+  {}
+  # regcred:
+  #   registry: quay.io
+  #   username: someone
+  #   password: sillyness
+  #   email: someone@host.com
+
+## @section Deployment parameters
+## Wether the service account to be created or not
+##
+## @param serviceAccount.create Enables service account creation
+## @param serviceAccount.annotations Service account annotations
+## @param serviceAccount.name Service account name. If name is not defined, but service account to be created, the name will be choosen by service account template.
+##
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+## @section Service access parameters
+## @param service.type Service type
+## @param service.port Service port
+##
+service:
+  type: ClusterIP
+  port: 80
+
+## @param ingress.enabled Ingress enabled (`true`/`false`)
+## @param ingress.className Ingress class name
+## @param ingress.annotations Ingress annotations
+## @param ingress.hosts [array] ingress access host(s) name(s)
+## @param ingress.hosts.host [string] Ingress host name
+## @param ingress.hosts.paths [array] Ingress path description
+## @param ingress.hosts.paths.path [default: /] Ingress path
+## @param ingress.hosts.paths.pathType [string] Ingress path type (`ImplementationSpecific`, `Prefix`, `Exact`)
+## @param ingress.hosts.paths.serviceName [string] Service name, where ingress points to
+## @param ingress.hosts.paths.serviceName [string] Service port
+## @param ingress.tls [array] TLS certificate description(s)
+## @param ingress.tls.secretName [string] TLS certificate secret name
+## @param ingress.tls.hosts [string] TLS certificate host name
+ingress:
+  enabled: false
+  className: "nginx"
+  annotations: {}
+  hosts:
+    - host: myhost.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+          serviceName: myservice
+          servicePort: 80
+  tls:
+    - hosts:
+        - myhost.example.com
+      secretName: myhost.example.com-tls
+
+## @param envVars [object] Environment variables which will be created in container [Environment variables](#environment-variables) section.
+envVars:
+  {}
+  # variablename: variablevalue
+
+## @section Service parameters
+## @param configMap [object] Service configuration file description. Please see [Configuration file in ConfigMap](#configuration-file-in-configmap) section.
+configMap: {}
+
+## @param secrets [object] Service secret environment variables or parameters description. Please see [Secrets](#secrets) section.
+secrets:
+  {}
+  # secretfile:
+  #   data:
+  #     api.key: |-
+  #       ahmaekaereeNgoo5ahkaikaexuwiegh0aiyeer9pief9aifeicheingeikielohn
+
+## @param envConfigMapVars [object] Environment variables from ConfigMap object. Please see [Environment variables from ConfigMap object](#environment-variables-from-configmap) section.
+envConfigMapVars:
+  {}
+  # variablename:
+  #   configMapName: nameOfTheConfigmap
+  #   configMapKey: KeyInConfigmap
+
+## @param envSecretVars [object] Environment variables from Kubernetes Secret object. Please see [Environment variables from Secret object](#environment-variables-from-secrets) section
+envSecretVars:
+  {}
+  # variablename:
+  #   secretName: nameOfTheSecret
+  #   secretKey: KeyInSecret
+
+## @param volumes [object] Mounting configuration file as a file in container. Please see [Mounting configuration file](#mounting-configuration-file) section
+volumes: {}
+
+## @param startupProbe.enabled Enable startup probe (`true`/`false`)
+## @param startupProbe.initialDelaySeconds Startup probe delay in seconds
+## @param startupProbe.periodSeconds Startup probe period in seconds
+## @param startupProbe.timeoutSeconds Startup probe timeout in seconds
+## @param startupProbe.failureThreshold Startup probe failure level in seconds
+## @param startupProbe.successThreshold Startup probe success level in seconds
+## @param startupProbe.httpGet.path Startup probe HTTP service endpoint
+## @param startupProbe.httpGet.port Startup probe HTTP service endpoint port
+startupProbe:
+  enabled: false
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  httpGet:
+    path: /
+    port: http
+
+## @param livenessProbe.enabled Enable liveness probe (`true`/`false`)
+## @param livenessProbe.initialDelaySeconds Liveness probe delay in seconds
+## @param livenessProbe.periodSeconds Liveness probe period in seconds
+## @param livenessProbe.timeoutSeconds Liveness probe timeout in seconds
+## @param livenessProbe.failureThreshold Liveness probe failure level in seconds
+## @param livenessProbe.successThreshold Liveness probe success level in seconds
+## @param livenessProbe.httpGet.path Liveness probe HTTP service endpoint
+## @param livenessProbe.httpGet.port Liveness probe HTTP service endpoint port
+livenessProbe:
+  enabled: false
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  httpGet:
+    path: /
+    port: http
+
+## @param readinessProbe.enabled Enable readiness probe (`true`/`false`)
+## @param readinessProbe.initialDelaySeconds Readiness probe delay in seconds
+## @param readinessProbe.periodSeconds Readiness probe period in seconds
+## @param readinessProbe.timeoutSeconds Readiness probe timeout in seconds
+## @param readinessProbe.failureThreshold Readiness probe failure level in seconds
+## @param readinessProbe.successThreshold Readiness probe success level in seconds
+## @param readinessProbe.httpGet.path Readiness probe HTTP service endpoint
+## @param readinessProbe.httpGet.port Readiness probe HTTP service endpoint port
+readinessProbe:
+  enabled: false
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  httpGet:
+    path: /
+    port: http
+
+## @param autoscaling.enabled Enablea autoscaling (`true`/`false`)
+## @param autoscaling.minReplicas Minimum number of kubernetes Pod objects
+## @param autoscaling.maxReplicas Maximum number of kubernetes Pod objects
+## @param autoscaling.cpuUtilizationPercentage CPU utilisation description in %
+## @param autoscaling.memoryUtilizationPercentage Memory utilisation description in %
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  cpuUtilizationPercentage: 80
+  memoryUtilizationPercentage: 80
+
+## @section Postgressql parameters
+## @param postgresql.enabled Postgresql deployment (`true`/`false`)
+## @descriptionStart Bitnami Postgresql deployment [helm chart'i](https://github.com/bitnami/charts/tree/main/bitnami/postgresql).
+## Postgresql parameters description can be found [here](https://github.com/bitnami/charts/tree/main/bitnami/postgresql#parameters).
+## @descriptionEnd
+postgresql:
+  enabled: false
+## @section RabbitMQ parameters
+## @param rabbitmq.enabled RabbitMQ paigaldus (`true`/`false`)
+## @descriptionStart Bitnami RabbitMQ [helm chart'i](https://github.com/bitnami/charts/tree/main/bitnami/rabbitmq).
+## RabbitMQ parameters description can be found [here](https://github.com/bitnami/charts/tree/main/bitnami/rabbitmq#parameters).
+## @descriptionEnd
+rabbitmq:
+  enabled: false
