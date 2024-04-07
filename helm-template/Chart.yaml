@@ -2,11 +2,11 @@ apiVersion: v2
 name: helm-template
 description: Universal helm template
 type: application
-version: 0.1.1
+version: 0.1.2
 appVersion: "0.1.0"
 dependencies:
   - name: helm-common
-    version: 0.5.2
+    version: 0.5.3
     repository: "https://vtarmo.github.io/helm-common/"
 maintainers:
   - name: Tarmo Katmuk

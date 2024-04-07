@@ -109,6 +109,18 @@ envSecretVars:
   #   secretName: nameOfTheSecret
   #   secretKey: KeyInSecret
 
+## @param envFromSecret [array] Set environment variables from secrets. The secrets have to be described in list.
+envFromSecret: []
+# envFromSecret:
+#   - secret1
+#   - secret2
+
+## @param envFromConfigMap [array] Set environment variables from configmap. The configmap names have to be described in list.
+envFromConfigMap: []
+# envFromConfigMap:
+#   - configmap1
+#   - configmap2
+
 ## @param volumes [object] Mounting configuration file as a file in container. Please see [Mounting configuration file](#mounting-configuration-file) section
 volumes: {}
 

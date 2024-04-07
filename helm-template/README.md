@@ -76,6 +76,8 @@ Global parameters to use in Helm chart herewith and the subcharts.
 | `secrets`                                 | Service secret environment variables or parameters description. Please see [Secrets](#secrets) section.                                                 | `{}`    |
 | `envConfigMapVars`                        | Environment variables from ConfigMap object. Please see [Environment variables from ConfigMap object](#environment-variables-from-configmap) section.   | `{}`    |
 | `envSecretVars`                           | Environment variables from Kubernetes Secret object. Please see [Environment variables from Secret object](#environment-variables-from-secrets) section | `{}`    |
+| `envFromSecret`                           | Set environment variables from secrets. The secrets have to be described in list.                                                                       | `[]`    |
+| `envFromConfigMap`                        | Set environment variables from configmap. The configmap names have to be described in list.                                                             | `[]`    |
 | `volumes`                                 | Mounting configuration file as a file in container. Please see [Mounting configuration file](#mounting-configuration-file) section                      | `{}`    |
 | `startupProbe.enabled`                    | Enable startup probe (`true`/`false`)                                                                                                                   | `false` |
 | `startupProbe.initialDelaySeconds`        | Startup probe delay in seconds                                                                                                                          | `10`    |
@@ -209,7 +211,7 @@ volumes:
     subPath: config.js
     volumeSpec:
       configMap:
-        name: tehik-ui
+        name: myconfigmap
         defaultMode: 420
         optional: false
 ```
