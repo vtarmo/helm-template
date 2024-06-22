@@ -15,3 +15,7 @@ Push to `master` and add tag.
 # ToDo
 - [ ] ingress lets encrypt deployment automation
 - [ ] cluster issuer deployment automation
+
+- [ ] create registry secrets
+- [ ] provide a name for configmap
+- [ ] allow multiple configmaps (for now only one configmap is configured)

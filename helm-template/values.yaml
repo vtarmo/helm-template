@@ -41,13 +41,21 @@ serviceAccount:
   annotations: {}
   name: ""
 
+##VTA
 ## @section Service access parameters
 ## @param service.type Service type
-## @param service.port Service port
+## @param service.ports configure service ports. Ports will be configured by the subset under the key `ports` with the port name as the key name.
 ##
 service:
   type: ClusterIP
-  port: 80
+  ports:
+    http:
+      port: 8004
+      protocol: TCP
+      targetPort: 8004
+    grpc:
+      port: 9000
+      protocol: TCP
 
 ## @param ingress.enabled Ingress enabled (`true`/`false`)
 ## @param ingress.className Ingress class name
@@ -192,18 +200,3 @@ autoscaling:
   maxReplicas: 100
   cpuUtilizationPercentage: 80
   memoryUtilizationPercentage: 80
-
-## @section Postgressql parameters
-## @param postgresql.enabled Postgresql deployment (`true`/`false`)
-## @descriptionStart Bitnami Postgresql deployment [helm chart'i](https://github.com/bitnami/charts/tree/main/bitnami/postgresql).
-## Postgresql parameters description can be found [here](https://github.com/bitnami/charts/tree/main/bitnami/postgresql#parameters).
-## @descriptionEnd
-postgresql:
-  enabled: false
-## @section RabbitMQ parameters
-## @param rabbitmq.enabled RabbitMQ paigaldus (`true`/`false`)
-## @descriptionStart Bitnami RabbitMQ [helm chart'i](https://github.com/bitnami/charts/tree/main/bitnami/rabbitmq).
-## RabbitMQ parameters description can be found [here](https://github.com/bitnami/charts/tree/main/bitnami/rabbitmq#parameters).
-## @descriptionEnd
-rabbitmq:
-  enabled: false
