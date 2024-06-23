@@ -1,6 +1,6 @@
 dependencies:
 - name: helm-common
   repository: https://vtarmo.github.io/helm-common/
-  version: 0.5.5
-digest: sha256:7576a4023f171aabc7d74b5f4c5ace240a6735272be8a85cb0249f685442fc81
-generated: "2024-06-22T19:56:22.719914+03:00"
+  version: 0.5.6
+digest: sha256:8cc0142d1804e8052098c7512c39623799c410c04af67c3571ac4ebca8ab37dd
+generated: "2024-06-23T15:33:06.531842+03:00"
