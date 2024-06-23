@@ -7,7 +7,12 @@ Template chart to use for creating universal deployments. This helm template is 
 Chart location charts/helm-template. Chart [documentation](helm-template/README.md). 
 
 ```bash
-helm dependency update helm-template
+make run
+git add .
+git commit -av
+git push origin master
+git tag <tag>
+git push --tags
 ```
 
 Push to `master` and add tag.
@@ -15,7 +20,8 @@ Push to `master` and add tag.
 # ToDo
 - [ ] ingress lets encrypt deployment automation
 - [ ] cluster issuer deployment automation
+- [ ] configurable multiple services
 
-- [ ] create registry secrets
-- [ ] provide a name for configmap
-- [ ] allow multiple configmaps (for now only one configmap is configured)
+- [x] create registry secrets
+- [x] provide a name for configmap
+- [x] allow multiple configmaps (for now only one configmap is configured)

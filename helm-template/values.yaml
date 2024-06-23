@@ -6,10 +6,18 @@ global:
   storageClass: ""
 # replicaCount: 1
 
+## @section Deployment names
+## @param fullnameOverride Provide a name to substitute for the full names of resources
+fullnameOverride: ""
+
+## @param nameOverride Provide a name in place of kube-prometheus-stack for `app:` labels
+nameOverride: ""
+
 ## @section Image parameters
 ## @param image.repository [default: REGISTRY_NAME] Image registry name
 ## @param image.tag [default: TAG] Image tag
 ## @param image.pullPolicy Image pull policy
+
 image:
   repository: ""
   tag: ""
@@ -43,19 +51,19 @@ serviceAccount:
 
 ##VTA
 ## @section Service access parameters
-## @param service.type Service type
-## @param service.ports configure service ports. Ports will be configured by the subset under the key `ports` with the port name as the key name.
+## @param service Configure Service. Please see more at [Service configuration](#service-configuration) section.
 ##
 service:
-  type: ClusterIP
-  ports:
-    http:
-      port: 8004
-      protocol: TCP
-      targetPort: 8004
-    grpc:
-      port: 9000
-      protocol: TCP
+  {}
+  # type: ClusterIP
+  # ports:
+  #   http:
+  #     port: 8004
+  #     protocol: TCP
+  #     targetPort: 8004
+  #   grpc:
+  #     port: 9000
+  #     protocol: TCP
 
 ## @param ingress.enabled Ingress enabled (`true`/`false`)
 ## @param ingress.className Ingress class name

@@ -29,6 +29,13 @@ Global parameters to use in Helm chart herewith and the subcharts.
 | --------------------- | ---------------------------------- | ----- |
 | `global.storageClass` | Global Storage Class configuration | `""`  |
 
+### Deployment names
+
+| Name               | Description                                                        | Value |
+| ------------------ | ------------------------------------------------------------------ | ----- |
+| `fullnameOverride` | Provide a name to substitute for the full names of resources       | `""`  |
+| `nameOverride`     | Provide a name in place of kube-prometheus-stack for `app:` labels | `""`  |
+
 ### Image parameters
 
 | Name               | Description                                                                                                     | Value           |
@@ -49,24 +56,23 @@ Global parameters to use in Helm chart herewith and the subcharts.
 
 ### Service access parameters
 
-| Name                              | Description                                                                                                       | Value       |
-| --------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------- |
-| `service.type`                    | Service type                                                                                                      | `ClusterIP` |
-| `service.port`                    | Service port                                                                                                      | `80`        |
-| `ingress.enabled`                 | Ingress enabled (`true`/`false`)                                                                                  | `false`     |
-| `ingress.className`               | Ingress class name                                                                                                | `nginx`     |
-| `ingress.annotations`             | Ingress annotations                                                                                               | `{}`        |
-| `ingress.hosts`                   | ingress access host(s) name(s)                                                                                    | `[]`        |
-| `ingress.hosts.host`              | Ingress host name                                                                                                 | `""`        |
-| `ingress.hosts.paths`             | Ingress path description                                                                                          | `[]`        |
-| `ingress.hosts.paths.path`        | Ingress path                                                                                                      | `/`         |
-| `ingress.hosts.paths.pathType`    | Ingress path type (`ImplementationSpecific`, `Prefix`, `Exact`)                                                   | `""`        |
-| `ingress.hosts.paths.serviceName` | Service name, where ingress points to                                                                             | `""`        |
-| `ingress.hosts.paths.serviceName` | Service port                                                                                                      | `""`        |
-| `ingress.tls`                     | TLS certificate description(s)                                                                                    | `[]`        |
-| `ingress.tls.secretName`          | TLS certificate secret name                                                                                       | `""`        |
-| `ingress.tls.hosts`               | TLS certificate host name                                                                                         | `""`        |
-| `envVars`                         | Environment variables which will be created in container [Environment variables](#environment-variables) section. | `{}`        |
+| Name                              | Description                                                                                                       | Value   |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------- |
+| `service`                         | Configure Service. Please see more at [Service configuration](#service-configuration) section.                    | `{}`    |
+| `ingress.enabled`                 | Ingress enabled (`true`/`false`)                                                                                  | `false` |
+| `ingress.className`               | Ingress class name                                                                                                | `nginx` |
+| `ingress.annotations`             | Ingress annotations                                                                                               | `{}`    |
+| `ingress.hosts`                   | ingress access host(s) name(s)                                                                                    | `[]`    |
+| `ingress.hosts.host`              | Ingress host name                                                                                                 | `""`    |
+| `ingress.hosts.paths`             | Ingress path description                                                                                          | `[]`    |
+| `ingress.hosts.paths.path`        | Ingress path                                                                                                      | `/`     |
+| `ingress.hosts.paths.pathType`    | Ingress path type (`ImplementationSpecific`, `Prefix`, `Exact`)                                                   | `""`    |
+| `ingress.hosts.paths.serviceName` | Service name, where ingress points to                                                                             | `""`    |
+| `ingress.hosts.paths.serviceName` | Service port                                                                                                      | `""`    |
+| `ingress.tls`                     | TLS certificate description(s)                                                                                    | `[]`    |
+| `ingress.tls.secretName`          | TLS certificate secret name                                                                                       | `""`    |
+| `ingress.tls.hosts`               | TLS certificate host name                                                                                         | `""`    |
+| `envVars`                         | Environment variables which will be created in container [Environment variables](#environment-variables) section. | `{}`    |
 
 ### Service parameters
 
@@ -109,24 +115,6 @@ Global parameters to use in Helm chart herewith and the subcharts.
 | `autoscaling.cpuUtilizationPercentage`    | CPU utilisation description in %                                                                                                                        | `80`    |
 | `autoscaling.memoryUtilizationPercentage` | Memory utilisation description in %                                                                                                                     | `80`    |
 
-### Postgressql parameters
-
-Bitnami Postgresql deployment [helm chart'i](https://github.com/bitnami/charts/tree/main/bitnami/postgresql).
-Postgresql parameters description can be found [here](https://github.com/bitnami/charts/tree/main/bitnami/postgresql#parameters).
-
-| Name                 | Description                            | Value   |
-| -------------------- | -------------------------------------- | ------- |
-| `postgresql.enabled` | Postgresql deployment (`true`/`false`) | `false` |
-
-### RabbitMQ parameters
-
-Bitnami RabbitMQ [helm chart'i](https://github.com/bitnami/charts/tree/main/bitnami/rabbitmq).
-RabbitMQ parameters description can be found [here](https://github.com/bitnami/charts/tree/main/bitnami/rabbitmq#parameters).
-
-| Name               | Description                         | Value   |
-| ------------------ | ----------------------------------- | ------- |
-| `rabbitmq.enabled` | RabbitMQ paigaldus (`true`/`false`) | `false` |
-
 ## Image file secrets creation
 
 Chart herewith can also create image pull secrets. You need to create secrets name under the `imagePullSecrets` parameter and create create secret objetm under `imageCredentials` parameter. The object name will be used as secrets name. In example:
@@ -158,12 +146,13 @@ ConfigMap can be used to define set of environment variables or application conf
 
 ```yaml
 configMap:
-  data:
-    config.js: |
-      window.VITE_API_GW_BASEURL = 'https:/host-api.example.com';
-      window.VITE_API_GW_PORT = '443';
+  myconfigmap:
+    data:
+      config.js: |
+        window.VITE_API_GW_BASEURL = 'https:/host-api.example.com';
+        window.VITE_API_GW_PORT = '443';
 ```
-There will be created ConfigMap object with fullName and the contents of the configuration data is described in `data` field. 
+There will be created ConfigMap object with fullName and the contents of the configuration data is described in `data` field. Key in the configmap configuration is the suffix of configma name. The format will be {release name}-{configmap sufix}.
 
 ## Secrets
 
@@ -176,7 +165,6 @@ secrets:
       api.key: |-
         ahmaekaereeNgoo5ahkaikaexuwiegh0aiyeer9pief9aifeicheingeikielohn
 ```
-
 
 ## Environment variables from ConfigMap
 If there is ConfigMap object alerady available, you can define these as follows: 
@@ -223,3 +211,19 @@ volumes:
 * `config.volumeSpec.configMap.name` - ConfigMap name that contains the configuration data
 * `config.volumeSpec.configMap.deaultMode` - mounted configuration file default permissions
 * `config.volumeSpec.configMap.optional` - `true` enables to start container when configuration file mount will not succeed. `false` will not enable to start container, when configuration file mounting will not succeed
+
+## Service configuration
+Here is the example of service configuration:
+```yaml
+service:
+  type: ClusterIP
+  ports:
+    http:
+      port: 8004
+      protocol: TCP
+      targetPort: 8004
+    grpc:
+      port: 9000
+      protocol: TCP
+```
+With an example above, there will be created service with type of `ClusterIP` and two exposed ports: with a name http and number 8004; and name grpc with a number 9000
